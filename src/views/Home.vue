@@ -245,10 +245,10 @@ export default {
         const NoCity = tempdata.filter((el) => !el.City);
         const CityItem = [];
         NoCity.forEach((el) => {
-          if (el.Address.match('縣')) {
+          if (el.Address) {
             el.City = el.Address.slice(0, 3);
           } else {
-            el.City = el.Address.slice(0, 3);
+            el.City = null;
           }
         });
         const temp = [...City, ...NoCity];
