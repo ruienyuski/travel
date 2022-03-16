@@ -11,7 +11,7 @@
       <img :src="item.Picture.PictureUrl1"
       style="height:137px;object-fit: cover;border:12px solid #fff">
       <q-card-section>
-        <div >{{ item.Name }}</div>
+        <div >{{ item.HotelName }}</div>
         <div class="text-subtitle2">
           <q-icon name="place" class="text-primary"></q-icon>
           <span class="text-accent">{{item.City}}</span>

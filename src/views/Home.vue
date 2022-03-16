@@ -135,7 +135,7 @@
               style="max-height:196px;"
             />
             <q-card-section>
-              <p style="font-size: 1rem; font-weight:bold;">{{ item.Name }}</p>
+              <p style="font-size: 1rem; font-weight:bold;">{{ item.ActivityName }}</p>
               <p class="ellipsis-3-lines">
                 {{item.Description}}
               </p>
@@ -162,7 +162,7 @@
           <img :src="item.Picture.PictureUrl1"
           style="height:137px;object-fit: cover;border:12px solid #fff">
           <q-card-section>
-            <div >{{ item.Name }}</div>
+            <div >{{ item.RestaurantName }}</div>
             <div class="text-subtitle2">
               <q-icon name="place" class="text-primary"></q-icon>
               <span class="text-accent">{{item.City}}</span>
@@ -281,8 +281,8 @@ export default {
         const random = temp.sort(() => Math.random() - 0.5);
         const ary = random.slice(0, 10);
         fooddata.value = ary;
-        // eslint-disable-next-line
-        console.log('temp',temp);
+        // // eslint-disable-next-line
+        // console.log('temp',temp);
       });
     };
 
