@@ -56,31 +56,13 @@ export default {
       return { Authorization, 'X-Date': GMTString };
     };
     const getCategoryCountry = () => {
-      axios.get(`https://ptx.transportdata.tw/MOTC/v2/Tourism/${route.params.item}/${route.params.city}`,
+      const city = 'Hsinchu';
+      axios.get(`https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/Streaming/City/${city}`,
         {
           headers: getAuthorizationHeader(),
         }).then((res) => {
-        switch (route.params.item) {
-          case 'Restaurant':
-            category.value = '餐飲';
-            categoryColor.value = 'text-accent';
-            break;
-          case 'Hotel':
-            category.value = '住宿';
-            categoryColor.value = 'text-secondary';
-            break;
-          case 'Activity':
-            category.value = '活動';
-            categoryColor.value = 'text-primary';
-            break;
-          default:
-            category.value = '';
-            categoryColor.value = '';
-        }
-        const temp = res.data.filter((i) => i.Picture.PictureUrl1);
-        const random = temp.sort(() => Math.random() - 0.5);
-        const ary = random.slice(0, 10);
-        fooddata.value = ary;
+        // eslint-disable-next-line
+          console.log(res.data);
       });
     };
     watch(route, () => {

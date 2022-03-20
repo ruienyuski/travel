@@ -20,6 +20,11 @@ const routes = [
     name: 'Hotel',
     component: () => import('../views/Hotel.vue'),
   },
+  {
+    path: '/traffic',
+    name: 'Hotel',
+    component: () => import('../views/Traffic.vue'),
+  },
 ];
 
 const router = createRouter({

@@ -54,7 +54,8 @@
         {
           "props": false
         }
-      ]
+      ],
+      "linebreak-style": 0
     }
   },
   "browserslist": [

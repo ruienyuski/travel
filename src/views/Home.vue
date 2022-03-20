@@ -248,7 +248,7 @@ export default {
           if (el.Address) {
             el.City = el.Address.slice(0, 3);
           } else {
-            el.City = null;
+            el.City = undefined;
           }
         });
         const temp = [...City, ...NoCity];
