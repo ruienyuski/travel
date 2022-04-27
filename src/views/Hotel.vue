@@ -56,16 +56,13 @@ export default {
     const category = ref(null);
     const axios = inject('axios');// inject axios
     const getAuthorizationHeader = () => {
-      //  填入自己 ID、KEY 開始
-      const AppID = '42fc671988c54704a5a441cfed709ce5';
-      const AppKey = 'KvV_xn7i63emNGaA4EstMe4wz7c';
       //  填入自己 ID、KEY 結束
       const GMTString = new Date().toGMTString();
       const ShaObj = new JSSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(AppKey, 'TEXT');
+      ShaObj.setHMACKey(process.env.VUE_APP_APIKEY, 'TEXT');
       ShaObj.update(`x-date: ${GMTString}`);
       const HMAC = ShaObj.getHMAC('B64');
-      const Authorization = `hmac username="${AppID}",algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"'`;
+      const Authorization = `hmac username="${process.env.VUE_APP_ID}",algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"'`;
       return { Authorization, 'X-Date': GMTString };
     };
     const getHotelData = () => {

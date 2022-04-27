@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/traffic',
-    name: 'Hotel',
+    name: 'Traffic',
     component: () => import('../views/Traffic.vue'),
   },
 ];
