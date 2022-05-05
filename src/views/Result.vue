@@ -1,4 +1,5 @@
 <template>
+    <Loading :active="isLoading" />
     <Headerbaner />
     <q-page-container>
       <div class="row container">
@@ -10,13 +11,15 @@
             <q-item-section class="text-h6">{{category}}</q-item-section>
           </q-item>
         </div>
-        <div v-if="fooddata.length < 5" class="q-pa-md row items-start q-gutter-md">
+        <div v-if="resultdata.length < 5" class="q-pa-md row items-start q-gutter-md">
           <q-card class=" my-card drop-shadow col"
-          v-for="item in fooddata" :key="item.ID">
+          v-for="item in resultdata" :key="item.ID">
             <img :src="item.Picture.PictureUrl1"
-            style="height:180px;object-fit: cover;border:12px solid #fff">
+            style="height:200px;object-fit: cover;border:12px solid #fff">
             <q-card-section>
-              <div >{{ item.HotelName }}</div>
+              <div class="ellipsis-2-lines">
+                {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
+              </div>
               <div class="text-subtitle2">
                 <q-icon name="place" class="text-primary"></q-icon>
                 <span class="text-accent">{{item.City}}</span>
@@ -26,11 +29,13 @@
         </div>
         <div v-else class="q-pa-md row justify-start items-start q-gutter-md">
           <q-card class="my-card drop-shadow col-md-2"
-          style="height:243px;" v-for="item in fooddata" :key="item.ID">
+          style="height:243px;" v-for="item in resultdata" :key="item.ID">
             <img :src="item.Picture.PictureUrl1"
             style="height:137px;object-fit: cover;border:12px solid #fff">
             <q-card-section>
-              <div >{{ item.HotelName }}</div>
+              <div class="ellipsis-2-lines">
+                {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
+              </div>
               <div class="text-subtitle2">
                 <q-icon name="place" class="text-primary"></q-icon>
                 <span class="text-accent">{{item.City}}</span>
@@ -62,9 +67,10 @@ export default {
     const route = useRoute();
     const selectCategory = ref(null);
     const selectLocation = ref(null);
-    const fooddata = ref({});
+    const resultdata = ref({});
     const category = ref(null);
     const categoryColor = ref(null);
+    const isLoading = ref(null);
     const axios = inject('axios');// inject axios
     const getAuthorizationHeader = () => {
       //  填入自己 ID、KEY 結束
@@ -77,6 +83,7 @@ export default {
       return { Authorization, 'X-Date': GMTString };
     };
     const getCategoryCountry = () => {
+      isLoading.value = true;
       axios.get(`https://ptx.transportdata.tw/MOTC/v2/Tourism/${route.params.item}/${route.params.city}`,
         {
           headers: getAuthorizationHeader(),
@@ -101,7 +108,8 @@ export default {
         const temp = res.data.filter((i) => i.Picture.PictureUrl1);
         const random = temp.sort(() => Math.random() - 0.5);
         const ary = random.slice(0, 10);
-        fooddata.value = ary;
+        resultdata.value = ary;
+        isLoading.value = false;
       });
     };
     watch(route, () => {
@@ -114,9 +122,10 @@ export default {
       getCategoryCountry,
       selectCategory,
       selectLocation,
-      fooddata,
+      resultdata,
       category,
       categoryColor,
+      isLoading,
     };
   },
 };

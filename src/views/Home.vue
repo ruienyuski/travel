@@ -1,4 +1,5 @@
 <template>
+    <Loading :active="isLoading" />
     <Headerbaner />
     <q-page-container>
       <div class="row container">
@@ -148,7 +149,7 @@
                       <q-icon name="place" class="text-primary"></q-icon>
                       <span style="font-weight:bold;">{{item.Location}}</span>
                     </div>
-                    <q-btn to="/" label="活動詳情" outline color="primary" />
+                    <q-btn to="/" label="活動詳情" outline color="primary" @click="detail(item)" />
                   </div>
                 </q-card-section>
               </q-card-section>
@@ -180,6 +181,55 @@
         Taiwan Tourguide  © Code: Michael  /  Design: KT
       </div>
     </q-page-container>
+    <q-dialog v-model="alert">
+      <q-card>
+        <q-bar>
+          <q-space></q-space>
+          <q-btn icon="close" flat round dense v-close-popup></q-btn>
+        </q-bar>
+        <img :src="detailData.Picture.PictureUrl1"
+        style="width:100%;height:459px;object-fit: cover;border:12px solid #fff">
+        <q-card-section>
+          <div class="text-h6">{{detailData.ActivityName}}</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none scroll" style="height: 100px">
+          {{detailData.Description}}
+        </q-card-section>
+        <q-card-section>
+            <q-item>
+              <q-item-section side >
+                <q-icon name="schedule" class="text-primary"></q-icon>
+              </q-item-section>
+              <q-item-section  v-if="detailData.Cycle">
+                {{detailData.Cycle}}
+              </q-item-section>
+              <q-item-section  v-else>
+                {{detailData.StartTime.split('T')[0]}}
+                ~ {{detailData.EndTime.split('T')[0]}}
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section side >
+                <q-icon name="place" class="text-primary"></q-icon>
+              </q-item-section>
+              <q-item-section >
+                {{detailData.Address}}
+              </q-item-section>
+            </q-item>
+            <q-item v-if="detailData.Phone">
+              <q-item-section side >
+                <q-icon name="call" class="text-primary"></q-icon>
+              </q-item-section>
+              <q-item-section>
+                {{detailData.Phone}}
+              </q-item-section>
+            </q-item>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
 </template>
 
 <script>
@@ -208,7 +258,9 @@ export default {
     const location = ref({ value: [] });
     const category = ref({ value: [] });
     const randomAry = ref({ value: [] });
-
+    const isLoading = ref(null);
+    const alert = ref(false);
+    const detailData = ref({});
     const getAuthorizationHeader = () => {
       //  填入自己 ID、KEY 結束
       const GMTString = new Date().toGMTString();
@@ -242,6 +294,7 @@ export default {
       randomAry.value = ary;
     };
     const getLocalData = () => {
+      isLoading.value = true;
       axios.get('https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot',
         {
           headers: getAuthorizationHeader(),
@@ -265,6 +318,7 @@ export default {
         const filterCity = CityItem.filter((item, key, arr) => arr.indexOf(item) === key);
         location.value = filterCity;
         hotCity(filterCity, localdata.value);
+        isLoading.value = false;
       });
     };
     const getActiveData = () => {
@@ -289,7 +343,12 @@ export default {
         fooddata.value = ary;
       });
     };
-
+    const detail = (item) => {
+      alert.value = true;
+      // eslint-disable-next-line
+      console.log(item);
+      detailData.value = item;
+    };
     onMounted(() => {
       getLocalData();
       getActiveData();
@@ -309,6 +368,10 @@ export default {
       category,
       hotCity,
       randomAry,
+      alert,
+      detail,
+      detailData,
+      isLoading,
     };
   },
 

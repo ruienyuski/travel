@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading" />
   <q-item>
     <q-item-section side>
       <q-icon name="square" class="text-secondary" ></q-icon>
@@ -54,6 +55,7 @@ export default {
     const fooddata = ref({});
     const hoteldata = ref({});
     const category = ref(null);
+    const isLoading = ref(null);
     const axios = inject('axios');// inject axios
     const getAuthorizationHeader = () => {
       //  填入自己 ID、KEY 結束
@@ -66,6 +68,7 @@ export default {
       return { Authorization, 'X-Date': GMTString };
     };
     const getHotelData = () => {
+      isLoading.value = true;
       axios.get('https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel',
         {
           headers: getAuthorizationHeader(),
@@ -74,6 +77,7 @@ export default {
         const random = temp.sort(() => Math.random() - 0.5);
         const ary = random.slice(0, 10);
         hoteldata.value = ary;
+        isLoading.value = false;
       });
     };
     const getFoodData = () => {
@@ -97,6 +101,7 @@ export default {
       hoteldata,
       fooddata,
       category,
+      isLoading,
     };
   },
 };
