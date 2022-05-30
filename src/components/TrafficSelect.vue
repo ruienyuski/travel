@@ -1,7 +1,7 @@
 <template>
   <Loading :active="isLoading" />
   <div class="q-pb-none q-mb-none q-gutter-md drop-shadow">
-      <div class="q-px-md q-pt-md q-pb-none q-mb-none ">
+      <div class="q-px-md q-pt-md q-pb-none q-mb-none bg-white">
         <div class="q-gutter-md row justify-center">
             <q-select bg-color="white" standout="bg-white" outlined
             v-model="selectCity" class="col-md-3"
