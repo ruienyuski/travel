@@ -11,6 +11,7 @@ import quasarUserOptions from './quasar-user-options';
 setCssVar('primary', '#FF1D6C');
 setCssVar('secondary', '#FFB72C');
 setCssVar('accent', '#007350');
+setCssVar('info', '#E5E5E5');
 
 const app = createApp(App);
 app.use(VueAxios, axios);

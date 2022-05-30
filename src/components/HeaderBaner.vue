@@ -1,43 +1,63 @@
 <template>
-  <div class="q-pb-md q-gutter-md drop-shadow">
-    <div class="row justify-between">
-
-    <q-parallax
-      src="https://www.taiwan.net.tw/att/event/6fe79462-ec06-41fc-8f6e-291250981bbb.jpg"
-    >
-      <div class="column">
-        <div class="q-pa-md text-white">
-          <h1>
-            <img src="../assets/main_title.png" alt="">
-          </h1>
-          <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
-        </div>
-        <div class="q-pa-md">
-          <q-input bg-color="white" standout="bg-white" bottom-slots v-model="search" label="搜尋關鍵字">
+    <!-- 平板 -->
+    <div class="q-pa-md col-12 desktop-hide" >
+      <div class="q-gutter-md">
+        <div class="row justify-between">
+          <q-select bg-color="white" standout="bg-white" outlined
+          v-model="selectCategory" class="col-md-6 col-12"
+          :options="category" label="類別" />
+          <q-select bg-color="white" standout="bg-white" outlined
+          v-model="selectLocation" class="col-md-6 col-12"
+          :options="location" label="不分縣市" >
             <template v-slot:after>
-              <q-btn padding="md" color="primary"  icon="place"></q-btn>
+              <q-btn padding="md" color="primary"
+              icon="search" @click="getCategoryCountry()"></q-btn>
             </template>
-          </q-input>
-          <div class="q-gutter-md">
-            <div class="row justify-between">
-              <q-select bg-color="white" standout="bg-white" outlined
-              v-model="selectCategory" class="col-md-6"
-              :options="category" label="類別" />
-              <q-select bg-color="white" standout="bg-white" outlined
-              v-model="selectLocation" class="col-md-6"
-              :options="location" label="不分縣市" >
-                <template v-slot:after>
-                  <q-btn padding="md" color="primary"
-                  icon="search" @click="getCategoryCountry()"></q-btn>
-                </template>
-              </q-select>
+          </q-select>
+        </div>
+      </div>
+    </div>
+    <!-- 桌面 -->
+    <div class="desktop-only drop-shadow">
+      <q-parallax
+        class="q-pa-md bg-white"
+      >
+        <div
+        style="background:url(https://www.taiwan.net.tw/att/event/6fe79462-ec06-41fc-8f6e-291250981bbb.jpg);
+        background-position: center;
+        background-size:cover;
+        width: 97%;">
+          <div class="column">
+            <div class="q-pa-md text-white column items-center">
+              <h1>
+                <img src="../assets/main_title.png" alt="">
+              </h1>
+              <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
+            </div>
+            <div class="q-pa-md self-center my-card" >
+              <!-- <q-input bg-color="white" standout="bg-white"
+              bottom-slots v-model="search" label="搜尋關鍵字">
+              </q-input> -->
+              <div class="q-gutter-md">
+                <div class="row justify-between">
+                  <q-select bg-color="white" standout="bg-white" outlined
+                  v-model="selectCategory" class="col-md-6 col-12"
+                  :options="category" label="類別" />
+                  <q-select bg-color="white" standout="bg-white" outlined
+                  v-model="selectLocation" class="col-md-6 col-12"
+                  :options="location" label="不分縣市" >
+                    <template v-slot:after>
+                      <q-btn padding="md" color="primary"
+                      icon="search" @click="getCategoryCountry()"></q-btn>
+                    </template>
+                  </q-select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </q-parallax>
+      </q-parallax>
     </div>
-  </div>
 </template>
 <script>
 import {

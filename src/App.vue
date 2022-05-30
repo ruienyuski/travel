@@ -42,26 +42,27 @@
     border-radius: 4px;
     color: rgba(0,0,0, .8);
     line-height: 1.5;
+    z-index:1;
   }
   .drop-shadow:before, .drop-shadow:after {
-    -webkit-box-shadow: 0 15px 10px rgba(0,0,0, .7);
-    -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
-    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
-    -webkit-transform: rotate(-3deg);
-    -moz-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
+    -webkit-box-shadow: 0 15px 10px rgba(0,0,0, .6);
+    -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 10px rgba(0, 0, 0, 0.6);
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
     position: absolute;
     left: 10px;
-    bottom: 15px;
+    bottom: 13px;
     z-index: -1;
-    width: 50%;
+    width: 45%;
     max-width: 300px;
     height: 20%;
     content: "";
   }
 
   .drop-shadow::after {
-    transform: rotate(3deg);
+    transform: rotate(5deg);
     right: 10px;
     left: auto;
   };

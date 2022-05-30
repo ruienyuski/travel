@@ -1,45 +1,61 @@
 <template>
   <Loading :active="isLoading" />
-  <q-item>
-    <q-item-section side>
-      <q-icon name="square" class="text-secondary" ></q-icon>
-    </q-item-section>
-    <q-item-section class="text-h6">熱門美食</q-item-section>
-  </q-item>
-  <div class="q-pa-md row justify-between items-start q-gutter-md">
-    <q-card class="my-card drop-shadow col-md-2"
-    style="height:243px;" v-for="item in fooddata" :key="item.ID">
-      <img :src="item.Picture.PictureUrl1"
-      style="height:137px;object-fit: cover;border:12px solid #fff">
-      <q-card-section>
-        <div >{{ item.RestaurantName }}</div>
-        <div class="text-subtitle2">
-          <q-icon name="place" class="text-primary"></q-icon>
-          <span class="text-accent">{{item.City}}</span>
+  <q-page-container class="bg-info">
+    <div class="row container">
+      <div class="q-pa-md col-md-12 q-gutter-md">
+        <q-item>
+          <q-item-section side>
+            <q-icon name="square" class="text-secondary" ></q-icon>
+          </q-item-section>
+          <q-item-section class="text-h6">熱門美食</q-item-section>
+        </q-item>
+        <div class="q-pa-md">
+          <div class="row justify-between items-start q-gutter-x-xs q-gutter-y-xl q-mb-lg">
+            <div class="drop-shadow column my-card col-md-2 justify-between"
+            style="height:243px;" v-for="item in fooddata" :key="item.ID"
+            >
+              <q-img :src="item.Picture.PictureUrl1" :alt="item.RestaurantName"
+              style="height:137px;border:12px solid #fff"
+              fit="cover"
+              />
+              <div class="column col bg-white q-pa-md">
+                <div >{{ item.RestaurantName }}</div>
+                <div class="text-subtitle2">
+                  <q-icon name="place" class="text-primary"></q-icon>
+                  <span class="text-accent">{{item.City}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </q-card-section>
-    </q-card>
-  </div>
-  <q-item>
-    <q-item-section side>
-      <q-icon name="square" class="text-secondary" ></q-icon>
-    </q-item-section>
-    <q-item-section class="text-h6">推薦住宿</q-item-section>
-  </q-item>
-  <div class="q-pa-md row justify-between items-start q-gutter-md">
-    <q-card class="my-card drop-shadow col-md-2"
-    style="height:243px;" v-for="item in hoteldata" :key="item.ID">
-      <img :src="item.Picture.PictureUrl1"
-      style="height:137px;object-fit: cover;border:12px solid #fff">
-      <q-card-section>
-        <div >{{ item.HotelName }}</div>
-        <div class="text-subtitle2">
-          <q-icon name="place" class="text-primary"></q-icon>
-          <span class="text-accent">{{item.City}}</span>
+        <q-item>
+          <q-item-section side>
+            <q-icon name="square" class="text-secondary" ></q-icon>
+          </q-item-section>
+          <q-item-section class="text-h6">推薦住宿</q-item-section>
+        </q-item>
+        <div class="q-pa-md">
+          <div class="row justify-between items-start q-gutter-x-xs q-gutter-y-xl q-mb-lg">
+            <div class="drop-shadow column my-card col-md-2 justify-between"
+            style="height:243px;" v-for="item in hoteldata" :key="item.ID"
+            >
+              <q-img :src="item.Picture.PictureUrl1" :alt="item.RestaurantName"
+              style="height:137px;border:12px solid #fff"
+              fit="cover"
+              />
+              <div class="column col bg-white q-pa-md">
+                <div >{{ item.HotelName }}</div>
+                <div class="text-subtitle2">
+                  <q-icon name="place" class="text-primary"></q-icon>
+                  <span class="text-accent">{{item.City}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </q-card-section>
-    </q-card>
-  </div>
+      </div>
+    </div>
+  </q-page-container>
 </template>
 
 <script>

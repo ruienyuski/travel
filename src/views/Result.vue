@@ -1,47 +1,61 @@
 <template>
     <Loading :active="isLoading" />
     <Headerbaner />
-    <q-page-container>
+    <q-page-container  class="bg-info">
       <div class="row container">
-        <div class="q-pa-md col-md-12 q-gutter-md">
+        <div class="q-pa-md col-md-12 ">
           <q-item>
             <q-item-section side>
               <q-icon name="square" :class="categoryColor" ></q-icon>
             </q-item-section>
             <q-item-section class="text-h6">{{category}}</q-item-section>
           </q-item>
-        </div>
-        <div v-if="resultdata.length < 5" class="q-pa-md row items-start q-gutter-md">
-          <q-card class=" my-card drop-shadow col"
-          v-for="item in resultdata" :key="item.ID">
-            <img :src="item.Picture.PictureUrl1"
-            style="height:200px;object-fit: cover;border:12px solid #fff">
-            <q-card-section>
-              <div class="ellipsis-2-lines">
-                {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
+          <div class="q-pa-md col-md-12 ">
+            <div v-if="resultdata.length < 5"
+            class="row justify-between items-start q-gutter-x-xs q-gutter-y-xl">
+              <div class="drop-shadow column col-md-4 col-xs-5 justify-between"
+              style="height:243px;" v-for="item in resultdata" :key="item.ID"
+              >
+                <q-img :src="item.Picture.PictureUrl1" class="col-5" :alt="item.RestaurantName"
+                style="height:137px;object-fit: cover;border:12px solid #fff"
+                fit="cover"
+                />
+                <div class="column col-5 justify-between bg-white">
+                  <div class="col-5 ellipsis q-px-md"
+                  style="line-height:1.5;max-width: 180px;">
+                  {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
+                  </div>
+                  <div class="text-subtitle2 col-5 q-px-md"
+                  style="line-height:3">
+                    <q-icon name="place" class="text-primary"></q-icon>
+                    <span class="text-accent">{{item.City}}</span>
+                  </div>
+                </div>
               </div>
-              <div class="text-subtitle2">
-                <q-icon name="place" class="text-primary"></q-icon>
-                <span class="text-accent">{{item.City}}</span>
-              </div>
-            </q-card-section>
-          </q-card>
-        </div>
-        <div v-else class="q-pa-md row justify-start items-start q-gutter-md">
-          <q-card class="my-card drop-shadow col-md-2"
-          style="height:243px;" v-for="item in resultdata" :key="item.ID">
-            <img :src="item.Picture.PictureUrl1"
-            style="height:137px;object-fit: cover;border:12px solid #fff">
-            <q-card-section>
-              <div class="ellipsis-2-lines">
-                {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
-              </div>
-              <div class="text-subtitle2">
-                <q-icon name="place" class="text-primary"></q-icon>
-                <span class="text-accent">{{item.City}}</span>
-              </div>
-            </q-card-section>
-          </q-card>
+            </div>
+            <div v-else
+            class="row justify-between items-start q-gutter-x-xs q-gutter-y-xl">
+                <div class="drop-shadow column col-md-2 col-xs-5 justify-between"
+                style="height:243px;" v-for="item in resultdata" :key="item.ID"
+                >
+                  <q-img :src="item.Picture.PictureUrl1" class="col-5" :alt="item.RestaurantName"
+                  style="height:137px;object-fit: cover;border:12px solid #fff"
+                  fit="cover"
+                  />
+                  <div class="column col-5 justify-between bg-white">
+                    <div class="col-5 ellipsis q-px-md"
+                    style="line-height:1.5;max-width: 180px;">
+                    {{ item.HotelName|| item.RestaurantName || item.ActivityName }}
+                    </div>
+                    <div class="text-subtitle2 col-5 q-px-md"
+                    style="line-height:3">
+                      <q-icon name="place" class="text-primary"></q-icon>
+                      <span class="text-accent">{{item.City}}</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row q-pa-md justify-center">

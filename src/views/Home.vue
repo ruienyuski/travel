@@ -1,7 +1,7 @@
 <template>
     <Loading :active="isLoading" />
     <Headerbaner />
-    <q-page-container>
+    <q-page-container class="bg-info">
       <div class="row container">
         <!-- 原先 router-view -->
         <div class="q-pa-md">
@@ -30,6 +30,7 @@
               control-color="primary"
               arrows
               height="240px"
+              class="bg-info"
             >
               <q-carousel-slide :name="1" class="column ">
                 <div class="row fit column  items-center q-gutter-xs q-col-gutter">
@@ -130,30 +131,28 @@
             </q-item-section>
             <q-item-section class="text-h6">熱門活動</q-item-section>
           </q-item>
-          <div class="q-pa-md row justify-between items-start q-gutter-md ">
-            <q-card class="my-card drop-shadow col-md-5"
-            flat bordered v-for="item in activedata" :key="item.ID">
-              <q-card-section horizontal>
-                <q-img
-                  class="col-5"
-                  :src="item.Picture.PictureUrl1"
-                  style="max-height:196px;"
-                />
-                <q-card-section>
-                  <p style="font-size: 1rem; font-weight:bold;">{{ item.ActivityName }}</p>
-                  <p class="ellipsis-3-lines">
-                    {{item.Description}}
-                  </p>
-                  <div class="row justify-between">
-                    <div>
-                      <q-icon name="place" class="text-primary"></q-icon>
-                      <span style="font-weight:bold;">{{item.Location}}</span>
-                    </div>
-                    <q-btn to="/" label="活動詳情" outline color="primary" @click="detail(item)" />
+          <div class="row justify-between  q-gutter-x-xs q-gutter-y-xl q-mb-lg">
+            <div class="drop-shadow row my-card"
+            v-for="item in activedata" :key="item.ID">
+              <div class="col-4 q-pa-md column justify-center bg-white">
+                <q-img :src="item.Picture.PictureUrl1" :alt="item.ActivityName"
+                style="height:196px;max-height:100%;" />
+              </div>
+              <div class="col-8 q-pa-md  column justify-around  bg-white">
+                <p class="ellipsis-2-lines"
+                style="font-size: 1rem; font-weight:bold;">{{ item.ActivityName }}</p>
+                <p class="ellipsis-3-lines">
+                  {{item.Description}}
+                </p>
+                <div class="row justify-between">
+                  <div>
+                    <q-icon name="place" class="text-primary"></q-icon>
+                    <span style="font-weight:bold;">{{item.Location}}</span>
                   </div>
-                </q-card-section>
-              </q-card-section>
-            </q-card>
+                  <q-btn to="/" label="活動詳情" outline color="primary" @click="detail(item)" />
+                </div>
+              </div>
+            </div>
           </div>
           <q-item>
             <q-item-section side>
@@ -161,19 +160,24 @@
             </q-item-section>
             <q-item-section class="text-h6">熱門餐飲</q-item-section>
           </q-item>
-          <div class="q-pa-md row justify-between items-start q-gutter-md">
-            <q-card class="my-card drop-shadow col-md-2"
-            style="height:243px;" v-for="item in fooddata" :key="item.ID">
-              <img :src="item.Picture.PictureUrl1"
-              style="height:137px;object-fit: cover;border:12px solid #fff">
-              <q-card-section>
-                <div >{{ item.RestaurantName }}</div>
-                <div class="text-subtitle2">
+          <div class="q-pa-md row justify-between items-start q-gutter-x-xs q-gutter-y-xl q-mb-lg">
+            <div class="drop-shadow column col-md-2 col-xs-5 justify-between"
+            style="max-height:243px;" v-for="item in fooddata" :key="item.ID"
+            >
+              <q-img :src="item.Picture.PictureUrl1" class="col-5" :alt="item.RestaurantName"
+              style="height:137px;border:12px solid #fff"
+              fit="cover"
+              />
+              <div class="column col-5 justify-between bg-white">
+                <div class="col-5 ellipsis q-px-md"
+                style="line-height:1.5;max-width: 180px;">{{ item.RestaurantName }}</div>
+                <div class="text-subtitle2 col-5 q-px-md"
+                style="line-height:3">
                   <q-icon name="place" class="text-primary"></q-icon>
                   <span class="text-accent">{{item.City}}</span>
                 </div>
-              </q-card-section>
-            </q-card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -183,7 +187,7 @@
     </q-page-container>
     <q-dialog v-model="alert">
       <q-card>
-        <q-bar>
+        <q-bar class="bg-primary text-white">
           <q-space></q-space>
           <q-btn icon="close" flat round dense v-close-popup></q-btn>
         </q-bar>
