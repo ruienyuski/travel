@@ -1,6 +1,27 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div class="row justify-between container q-py-md">
+    <!-- 平板 -->
+    <div class="container q-py-md desktop-hide">
+      <div class="row justify-center">
+        <router-link to="/">
+        <img src="./assets/logo_desktop.png" alt="logo"
+        style="height: 57px; max-width: 99px">
+        </router-link>
+      </div>
+      <div class="row justify-center">
+        <q-item to="/" exact>
+          <q-item-section >台灣景點</q-item-section>
+        </q-item>
+        <q-item  to="/hotel" exact>
+          <q-item-section >美食住宿</q-item-section>
+        </q-item>
+        <q-item  to="/traffic" exact>
+          <q-item-section >景點交通</q-item-section>
+        </q-item>
+      </div>
+    </div>
+    <!-- 桌面 -->
+    <div class="desktop-only row justify-between container q-py-md">
       <router-link  to="/">
       <img src="./assets/logo_desktop.png" alt="logo"
       style="height: 57px; max-width: 99px">

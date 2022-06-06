@@ -27,7 +27,7 @@
         background-position: center;
         background-size:cover;
         width: 97%;">
-          <div class="column">
+          <div class="column q-pa-md">
             <div class="q-pa-md text-white column items-center">
               <h1>
                 <img src="../assets/main_title.png" alt="">

@@ -134,11 +134,11 @@
           <div class="row justify-between  q-gutter-x-xs q-gutter-y-xl q-mb-lg">
             <div class="drop-shadow row my-card"
             v-for="item in activedata" :key="item.ID">
-              <div class="col-4 q-pa-md column justify-center bg-white">
+              <div class="col-md-4 col-xs-12 q-pa-md column justify-center bg-white">
                 <q-img :src="item.Picture.PictureUrl1" :alt="item.ActivityName"
                 style="height:196px;max-height:100%;" />
               </div>
-              <div class="col-8 q-pa-md  column justify-around  bg-white">
+              <div class="col-md-8 col-xs-12 q-pa-md  column justify-around  bg-white">
                 <p class="ellipsis-2-lines"
                 style="font-size: 1rem; font-weight:bold;">{{ item.ActivityName }}</p>
                 <p class="ellipsis-3-lines">
@@ -164,14 +164,14 @@
             <div class="drop-shadow column col-md-2 col-xs-5 justify-between"
             style="max-height:243px;" v-for="item in fooddata" :key="item.ID"
             >
-              <q-img :src="item.Picture.PictureUrl1" class="col-5" :alt="item.RestaurantName"
-              style="height:137px;border:12px solid #fff"
+              <q-img :src="item.Picture.PictureUrl1"  :alt="item.RestaurantName"
+              style="height:137px; border:12px solid #fff"
               fit="cover"
               />
-              <div class="column col-5 justify-between bg-white">
-                <div class="col-5 ellipsis q-px-md"
-                style="line-height:1.5;max-width: 180px;">{{ item.RestaurantName }}</div>
-                <div class="text-subtitle2 col-5 q-px-md"
+              <div class="column justify-between bg-white">
+                <div class="ellipsis q-px-md"
+                style="line-height:1.5;max-width: 130px;">{{ item.RestaurantName }}</div>
+                <div class="text-subtitle2 q-px-md"
                 style="line-height:3">
                   <q-icon name="place" class="text-primary"></q-icon>
                   <span class="text-accent">{{item.City}}</span>
