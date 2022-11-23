@@ -65,7 +65,6 @@ import {
   onMounted,
   inject,
 } from 'vue';
-import JSSHA from 'jssha';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -79,21 +78,9 @@ export default {
     const selectLocation = ref(null);
     const location = ref(null);
     const category = ref(null);
-    const getAuthorizationHeader = () => {
-      //  填入自己 ID、KEY 結束
-      const GMTString = new Date().toGMTString();
-      const ShaObj = new JSSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(process.env.VUE_APP_APIKEY, 'TEXT');
-      ShaObj.update(`x-date: ${GMTString}`);
-      const HMAC = ShaObj.getHMAC('B64');
-      const Authorization = `hmac username="${process.env.VUE_APP_ID}",algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"'`;
-      return { Authorization, 'X-Date': GMTString };
-    };
+
     const getLocalData = () => {
-      axios.get('https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot',
-        {
-          headers: getAuthorizationHeader(),
-        }).then((res) => {
+      axios.get('https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot').then((res) => {
         const tempdata = res.data;
         const City = tempdata.filter((el) => el.City);
         const NoCity = tempdata.filter((el) => !el.City);

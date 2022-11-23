@@ -51,6 +51,46 @@
     <router-view></router-view>
   </q-layout>
 </template>
+<script>
+import { onMounted, inject } from 'vue';
+import qs from 'qs';
+
+export default {
+
+  setup() {
+    const axios = inject('axios'); // inject axios
+    const getAuthorizationHeader = () => {
+      const parameter = {
+        grant_type: 'client_credentials',
+        client_id: process.env.VUE_APP_ID,
+        client_secret: process.env.VUE_APP_APIKEY,
+      };
+
+      // eslint-disable-next-line camelcase
+      const auth_url = 'https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token';
+      axios({
+        method: 'POST',
+        url: auth_url,
+        dataType: 'JSON',
+        data: qs.stringify(parameter),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+      })
+        .then((res) => {
+          axios.defaults.headers.common.Authorization = `Bearer ${res.data.access_token}`;
+        })
+        .catch((err) => {
+          // eslint-disable-next-line
+          console.log(err);
+        });
+    };
+    onMounted(() => {
+      getAuthorizationHeader();
+    });
+  },
+};
+</script>
 <style lang="scss">
 @import './assets/app.scss';
   .my-card {

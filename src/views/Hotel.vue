@@ -64,7 +64,6 @@ import {
   onMounted,
   inject,
 } from 'vue';
-import JSSHA from 'jssha';
 
 export default {
   setup() {
@@ -73,22 +72,9 @@ export default {
     const category = ref(null);
     const isLoading = ref(null);
     const axios = inject('axios');// inject axios
-    const getAuthorizationHeader = () => {
-      //  填入自己 ID、KEY 結束
-      const GMTString = new Date().toGMTString();
-      const ShaObj = new JSSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(process.env.VUE_APP_APIKEY, 'TEXT');
-      ShaObj.update(`x-date: ${GMTString}`);
-      const HMAC = ShaObj.getHMAC('B64');
-      const Authorization = `hmac username="${process.env.VUE_APP_ID}",algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"'`;
-      return { Authorization, 'X-Date': GMTString };
-    };
     const getHotelData = () => {
       isLoading.value = true;
-      axios.get('https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel',
-        {
-          headers: getAuthorizationHeader(),
-        }).then((res) => {
+      axios.get('https://tdx.transportdata.tw/api/basic/v2/Tourism/Hotel').then((res) => {
         const temp = res.data.filter((i) => i.Picture.PictureUrl1);
         const random = temp.sort(() => Math.random() - 0.5);
         const ary = random.slice(0, 10);
@@ -97,12 +83,7 @@ export default {
       });
     };
     const getFoodData = () => {
-      axios.get('https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant',
-        {
-          headers: getAuthorizationHeader(),
-        }).then((res) => {
-        // eslint-disable-next-line
-          console.log(res);
+      axios.get('https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant').then((res) => {
         const temp = res.data.filter((i) => i.Picture.PictureUrl1);
         const random = temp.sort(() => Math.random() - 0.5);
         const ary = random.slice(0, 10);

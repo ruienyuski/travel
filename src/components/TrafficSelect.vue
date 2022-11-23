@@ -49,7 +49,6 @@ import {
   inject,
   watch,
 } from 'vue';
-import JSSHA from 'jssha';
 import emitter from '../methods/mitt';
 // import { useRouter } from 'vue-router';
 
@@ -91,22 +90,9 @@ export default {
       { label: '澎湖縣', value: 'PenghuCounty' },
       { label: '連江縣', value: 'LienchiangCounty' },
     ];
-    const getAuthorizationHeader = () => {
-      //  填入自己 ID、KEY 結束
-      const GMTString = new Date().toGMTString();
-      const ShaObj = new JSSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(process.env.VUE_APP_APIKEY, 'TEXT');
-      ShaObj.update(`x-date: ${GMTString}`);
-      const HMAC = ShaObj.getHMAC('B64');
-      const Authorization = `hmac username="${process.env.VUE_APP_ID}",algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"'`;
-      return { Authorization, 'X-Date': GMTString };
-    };
     const getLocalData = () => {
       isLoading.value = true;
-      axios.get(`https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${selectCity.value}`,
-        {
-          headers: getAuthorizationHeader(),
-        }).then((res) => {
+      axios.get(`https://tdx.transportdata.tw/api/basic/v2/Bus/EstimatedTimeOfArrival/City/${selectCity.value}`).then((res) => {
         routeData.value = [];
         selectRoute.value = '';
         direction.value = {};
@@ -128,10 +114,7 @@ export default {
       });
     };
     const upateRoute = () => {
-      axios.get(`https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${selectCity.value}/${selectRoute.value}`,
-        {
-          headers: getAuthorizationHeader(),
-        }).then((res) => {
+      axios.get(`https://tdx.transportdata.tw/api/basic/v2/Bus/EstimatedTimeOfArrival/City/${selectCity.value}/${selectRoute.value}`).then((res) => {
         const temp = [];
         const cacheData = {};
         const goData = [];
@@ -143,8 +126,6 @@ export default {
             }
           }
         });
-        // eslint-disable-next-line
-        console.log('temp', temp);
         cacheData.go = temp.filter((el) => el.Direction);
         cacheData.back = temp.filter((el) => !el.Direction);
         cacheData.go.forEach((el) => {
@@ -179,11 +160,8 @@ export default {
     };
     const StopOfRoute = () => {
       axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/${selectCity.value}/${selectRoute.value}
+        `https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/${selectCity.value}/${selectRoute.value}
         `,
-        {
-          headers: getAuthorizationHeader(),
-        },
       ).then((res) => {
         res.data.forEach((el) => {
           if (el.RouteName.Zh_tw === selectRoute.value) {
@@ -202,11 +180,8 @@ export default {
     };
     const getRoute = () => {
       axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${selectCity.value}/${selectRoute.value}
+        `https://tdx.transportdata.tw/api/basic/v2/Bus/Route/City/${selectCity.value}/${selectRoute.value}
         `,
-        {
-          headers: getAuthorizationHeader(),
-        },
       ).then((res) => {
         const select = res.data.filter((el) => el.RouteName.Zh_tw === selectRoute.value);
         direction.value.go = select[0].DepartureStopNameZh;
