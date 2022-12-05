@@ -8,7 +8,7 @@
           :options="category" label="類別" />
           <q-select bg-color="white" standout="bg-white" outlined
           v-model="selectLocation" class="col-md-6 col-12"
-          :options="location" label="不分縣市" >
+          :options="location" label="選擇縣市" >
             <template v-slot:after>
               <q-btn padding="md" color="primary"
               icon="search" @click="getCategoryCountry()"></q-btn>
@@ -45,7 +45,7 @@
                   :options="category" label="類別" />
                   <q-select bg-color="white" standout="bg-white" outlined
                   v-model="selectLocation" class="col-md-6 col-12"
-                  :options="location" label="不分縣市" >
+                  :options="location" label="選擇縣市" >
                     <template v-slot:after>
                       <q-btn padding="md" color="primary"
                       icon="search" @click="getCategoryCountry()"></q-btn>
