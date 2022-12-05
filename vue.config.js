@@ -9,6 +9,6 @@ module.exports = {
     'quasar',
   ],
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/travel2021/'
+    ? '/travel/'
     : '/',
 };
